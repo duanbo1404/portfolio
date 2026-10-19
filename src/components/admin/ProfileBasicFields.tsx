@@ -33,7 +33,7 @@ export function ProfileBasicFields({
                 onChange={(event) => onChange('name', event.target.value)}
                 hasError={hasError}
                 aria-describedby={describedBy}
-                placeholder="如 张三"
+                placeholder="如 段博"
               />
             )}
           </FormField>

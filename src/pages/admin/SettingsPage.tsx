@@ -137,7 +137,7 @@ export function SettingsPage(): ReactElement {
                 onChange={(event) => updateForm({ siteName: event.target.value })}
                 hasError={hasError}
                 aria-describedby={describedBy}
-                placeholder="如 张三 · 前端开发工程师"
+                placeholder="如 段博的个人网站"
               />
             )}
           </FormField>

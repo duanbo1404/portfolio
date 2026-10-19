@@ -419,9 +419,10 @@ export interface ContactMessage {
 | `KEYS.adminUser` | `pf:admin_user` | 管理员凭据 | `AdminUser` |
 | `KEYS.token` | `pf:auth_token` | 登录令牌 | `AuthToken` |
 | `KEYS.messages` | `pf:messages` | 留言记录 | `ContactMessage[]` |
-| `KEYS.seedVersion` | `pf:seed_version` | 种子数据版本 | `string`（如 `"1"`） |
+| `KEYS.seedVersion` | `pf:seed_version` | 种子数据版本 | `string`（如 `"2"`） |
 
-> 版本化：`SEED_VERSION` 变化时，在保留用户数据的前提下补齐新增字段（浅合并默认值），不整体覆盖。
+> 版本化：`SEED_VERSION` 变化时，默认只补齐缺失的 key，并对个人信息与站点设置浅合并默认值；
+> 若旧版本种子是虚构示例内容（见 `REPLACE_SEED_CONTENT_FROM`），则个人信息、项目、文章与站点设置整体替换为新种子，技能与管理员账号保留。
 
 ### 4.3 存储与请求基础设施
 
