@@ -1,0 +1,142 @@
+@import 'highlight.js/styles/github-dark.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== 设计变量：与 tailwind.config.ts 保持同源 ===== */
+:root {
+  color-scheme: dark;
+
+  --color-bg-base: #080f1a;
+  --color-bg-surface: #0e1726;
+  --color-bg-surface-hover: #131f31;
+  --color-border: rgba(230, 234, 242, 0.08);
+  --color-border-strong: rgba(230, 234, 242, 0.16);
+  --color-text: #e6eaf2;
+  --color-text-muted: #8a94a6;
+  --color-primary: #5b8def;
+  --color-primary-hover: #7ba4f5;
+  --color-accent: #7dd3fc;
+
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    /* 锚点滚动时给吸顶导航留出空间 */
+    scroll-padding-top: 88px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply min-h-screen bg-base font-sans text-content antialiased;
+    font-size: 16px;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  /* 任何断点下都不允许横向滚动 */
+  img,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: rgba(125, 211, 252, 0.28);
+    color: var(--color-text);
+  }
+}
+
+@layer components {
+  /* 统一内容容器：桌面 1200px，左右安全边距 32/24/16 */
+  .container-page {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 md:px-8;
+  }
+
+  /* Markdown 排版覆盖：链接、行内代码、引用、代码块 */
+  .prose {
+    @apply prose-invert max-w-none;
+  }
+
+  .prose :where(a):not(:where([class~='not-prose'] *)) {
+    color: var(--color-accent);
+    text-decoration-color: rgba(125, 211, 252, 0.4);
+  }
+
+  .prose :where(blockquote):not(:where([class~='not-prose'] *)) {
+    border-left-color: var(--color-primary);
+    color: var(--color-text-muted);
+  }
+
+  .prose :where(pre):not(:where([class~='not-prose'] *)) {
+    @apply rounded-lg border border-line bg-surface;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .prose :where(pre code):not(:where([class~='not-prose'] *)) {
+    @apply block overflow-x-auto p-4 font-mono text-sm;
+  }
+}
+
+@layer utilities {
+  /* 细滚动条，避免 Windows 默认滚动条破坏深色视觉 */
+  .scrollbar-slim {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(230, 234, 242, 0.16) transparent;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-slim::-webkit-scrollbar-thumb {
+    background-color: rgba(230, 234, 242, 0.16);
+    border-radius: 999px;
+  }
+}
+
+/* 尊重系统「减少动态效果」设置 */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 代码高亮：背景由代码块卡片承载，避免主题深色与 surface 叠加出第二种底色 */
+.hljs {
+  background: transparent;
+}
